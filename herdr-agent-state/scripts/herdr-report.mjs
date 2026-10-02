@@ -35,8 +35,9 @@ function handleHook(input) {
 function locatePane(sessionId) {
   const cacheKey = sessionId && `${sessionId}.pane`;
   const ancestors = ancestorsOf(process.ppid, parseParentMap(readProcessTable()));
-  const pane = findPane({ herdr, ancestors, hint: cacheKey && store.read(cacheKey) });
-  if (pane && cacheKey) store.write(cacheKey, pane);
+  const hint = cacheKey && store.read(cacheKey);
+  const pane = findPane({ herdr, ancestors, hint });
+  if (pane && cacheKey && pane !== hint) store.write(cacheKey, pane);
   return pane;
 }
 

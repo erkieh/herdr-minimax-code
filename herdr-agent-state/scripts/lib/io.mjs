@@ -23,8 +23,8 @@ export function processIsAlive(pid) {
   try {
     process.kill(pid, 0);
     return true;
-  } catch (error) {
-    return error.code === 'EPERM'; // exists, owned by someone else
+  } catch {
+    return false; // ESRCH, or EPERM: another user's process, so never one of our watchers
   }
 }
 

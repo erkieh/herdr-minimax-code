@@ -48,4 +48,6 @@ describe('claim', () => {
 describe('processIsAlive', () => {
   it('knows this process is alive', () => assert.equal(processIsAlive(process.pid), true));
   it('knows an unused pid is not', () => assert.equal(processIsAlive(2 ** 22 + 1), false));
+  it("treats another user's process (EPERM) as not one of ours", { skip: process.getuid?.() === 0 }, () =>
+    assert.equal(processIsAlive(1), false));
 });
