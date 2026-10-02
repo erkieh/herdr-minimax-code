@@ -24,13 +24,13 @@ Requires `node` and `herdr` on `PATH`, macOS or Linux.
 | Question / plan dialog on screen | `blocked` |
 | Turn interrupted with Esc | `idle` |
 
-Every report carries the resume command `mcode --session <id>`. Herdr accepts it, and `mcode --session <id>` reopens the session. A full Herdr server restart was not tested.
+Every hook report carries the resume command `mcode --session <id>`. Herdr accepts it, and `mcode --session <id>` reopens the session. A full Herdr server restart was not tested.
 
 ## How it works
 
 - **Finding the pane.** mcode runs hooks with a whitelisted environment, so `HERDR_PANE_ID` isn't visible. The script walks its ancestor processes and picks the Herdr pane whose `shell_pid` (`herdr pane process-info`) is one of them. It caches the result per session under the plugin data dir.
 - **Screen fallbacks.** Some transitions fire no hook, so a detached helper reads the pane footer:
-  - **Interrupted turns.** mcode fires no `Stop` when you press Esc. While the pane is `working`, a watcher (one per pane) reports `idle` once the `Esc stop` / `Running` footer has been gone for 2 seconds.
+  - **Interrupted turns.** mcode fires no `Stop` when you press Esc. While the pane is `working`, a watcher (one per pane) reports `idle` (or `blocked` if a dialog is showing) once the `Esc stop` / `Running` footer has been gone for 2 seconds. Screen-fallback reports carry no resume command.
   - **Question dialogs.** `ask_user` ends the turn before its dialog appears. After `Stop`, a one-shot check reports `blocked` while the dialog is on screen and `idle` once it closes. Cancelling a question fires no hook either.
   - **Matching.** The dialog strings are the ones from Herdr PR #2883's detection manifest.
 - **Never blocking mcode.** Reports run detached and every error is swallowed. The script never writes to stdout, because mcode would read that as a hook decision.
