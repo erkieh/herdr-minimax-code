@@ -35,6 +35,20 @@ Every report carries the resume command `mcode --session <id>`. Herdr accepts it
   - **Matching.** The dialog strings are the ones from Herdr PR #2883's detection manifest.
 - **Never blocking mcode.** Reports run detached and every error is swallowed. The script never writes to stdout, because mcode would read that as a hook decision.
 
+## Code layout
+
+| File | Role |
+|---|---|
+| `scripts/herdr-report.mjs` | Hook entry point; wires the pieces together |
+| `scripts/lib/hooks.mjs` | Hook event → what to tell Herdr (pure) |
+| `scripts/lib/herdr.mjs` | `herdr` CLI arguments and JSON client |
+| `scripts/lib/pane.mjs` | Finds the pane from the process tree |
+| `scripts/lib/screen.mjs` | Recognises mcode footers and dialogs |
+| `scripts/lib/monitors.mjs` | Screen watchers for transitions without a hook |
+| `scripts/lib/io.mjs` | All side effects: processes, files, locks |
+
+Tests live outside the plugin, in the repository's `test/` directory. Run them from the repository root with `npm test` (Node 20+, no dependencies).
+
 ## Known limits
 
 - Herdr shows the pane only after the first prompt, because mcode fires `SessionStart` lazily.
