@@ -24,7 +24,7 @@ you quit mcode         →  pane released
 Copy the plugin folder into mcode's local plugin directory:
 
 ```bash
-git clone https://github.com/<you>/herdr-minimax-code.git
+git clone https://github.com/erkieh/herdr-minimax-code.git
 cp -R herdr-minimax-code/herdr-agent-state ~/.minimax/plugins/
 ```
 
@@ -127,3 +127,7 @@ test/                           tests; not shipped with the plugin
 ```
 
 Only `io.mjs` and the entry point touch the outside world. Every other module takes its dependencies as arguments, so tests can pass in fakes.
+
+## License
+
+[MIT](LICENSE)

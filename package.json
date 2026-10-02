@@ -2,6 +2,7 @@
   "name": "herdr-minimax-code",
   "private": true,
   "description": "Development harness for the herdr-agent-state MiniMax Code plugin",
+  "license": "MIT",
   "type": "module",
   "engines": {
     "node": ">=20"
