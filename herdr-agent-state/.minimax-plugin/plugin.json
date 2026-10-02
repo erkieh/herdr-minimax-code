@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "name": "herdr-agent-state",
+  "displayName": "Herdr agent state",
+  "version": "0.1.0",
+  "description": "Reports MiniMax Code state (working, blocked, idle) and its resume command to the Herdr pane it runs in.",
+  "author": "Erki Ehtla",
+  "icon": "assets/icon.png",
+  "category": "Code",
+  "exampleQueries": [],
+  "apps": [],
+  "mcpServers": [],
+  "skills": [],
+  "hooks": ["hooks/herdr.json"]
+}
